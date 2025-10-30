@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Internship Recommender</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Internship Recommender</h1>
+    <p>Enter your profile and get suitable internship suggestions.</p>
+  </header>
+
+  <main class="container">
+    <section class="form-card">
+      <label>Skills (comma separated)</label>
+      <input id="skills" placeholder="e.g. python, pandas, ml" />
+
+      <label>Preferred Sector</label>
+      <input id="sector" placeholder="e.g. Data Science" />
+
+      <label>Preferred Location</label>
+      <input id="location" placeholder="e.g. Delhi" />
+
+      <label>Short Bio (2 lines)</label>
+      <textarea id="bio" rows="3" placeholder="Tell us about yourself"></textarea>
+
+      <div class="row">
+        <button id="submitBtn" onclick="submitProfile()">Get Recommendations</button>
+        <button id="clearBtn" onclick="clearForm()">Clear</button>
+      </div>
+    </section>
+
+    <section id="results" class="results">
+      <!-- cards injected here -->
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>Built for demo • Shows top matches with short explanations</small>
+  </footer>
+
+<script src="/static/script.js"></script>
+</body>
+</html>

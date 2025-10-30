@@ -1,0 +1,21 @@
+id,title,company,description,skills,sector,location,duration,apply_link
+1,Data Science Intern,Acme Labs,"Work on data cleaning, EDA, model prototyping using Python and pandas.","python;pandas;ml;statistics",Data Science,Delhi,3 months,https://example.com/apply/1
+2,Web Developer Intern,BlueStart,"Frontend development with React and CSS, create responsive UI.","html;css;react;javascript",Web Development,Noida,2 months,https://example.com/apply/2
+3,ML Research Intern,DeepThink,"Implement ML baselines, read papers, run experiments in PyTorch.","python;pytorch;ml",Data Science,Bengaluru,6 months,https://example.com/apply/3
+4,Frontend Intern,PixelWorks,"Build UI components, optimize performance, accessibility check.","html;css;javascript",Web Development,Mumbai,2 months,https://example.com/apply/4
+5,Backend Intern,CloudCore,"API development in Python, Flask/Django, work with databases.","python;flask;sql",Backend,Hyderabad,3 months,https://example.com/apply/5
+6,Product Analyst Intern,InsightHub,"Data analysis, dashboards, stakeholder meetings, Excel/SQL.","sql;excel;powerbi",Product Management,Delhi,2 months,https://example.com/apply/6
+7,Mobile App Intern,AppSprint,"Develop basic Android features using Kotlin and UI components.","kotlin;android",Mobile Development,Pune,3 months,https://example.com/apply/7
+8,Embedded Systems Intern,HardChip,"Work on microcontrollers, C programming, sensors integration.","c;embedded;microcontrollers",Electronics,Gurgaon,4 months,https://example.com/apply/8
+9,DevOps Intern,InfraEdge,"CI/CD pipelines, Docker, basic AWS/GCP usage.","docker;ci/cd;aws",DevOps,Bengaluru,3 months,https://example.com/apply/9
+10,UI/UX Intern,DesignBox,"Wireframing, Figma, user testing and basic research.","figma;ux",Design,Mumbai,2 months,https://example.com/apply/10
+11,Data Engineering Intern,PipeData,"ETL pipelines, Spark, data warehousing tasks.","spark;python;etl",Data Engineering,Hyderabad,4 months,https://example.com/apply/11
+12,QA Testing Intern,QualityWorks,"Manual and automated testing with Selenium.","selenium;testing",QA,Noida,2 months,https://example.com/apply/12
+13,Computer Vision Intern,VisionLab,"Image processing, OpenCV, model deployment tasks.","python;opencv;deep-learning",Data Science,Bengaluru,6 months,https://example.com/apply/13
+14,Research Writer Intern,WriteRight,"Technical content writing, summarizing papers and documentation.","writing;research",Content,Delhi,1 month,https://example.com/apply/14
+15,Blockchain Intern,BlockWave,"Smart contracts basics, solidity, decentralized apps overview.","solidity;blockchain",Blockchain,Pune,3 months,https://example.com/apply/15
+16,Automation Intern,AutoEdge,"Automation scripts using Python, scheduling tasks.","python;automation",Software,Noida,2 months,https://example.com/apply/16
+17,Sales Intern,MarketPlus,"Lead generation, CRM usage, communication with clients.","crm;sales",Sales,Delhi,2 months,https://example.com/apply/17
+18,Cloud Security Intern,SecureNet,"Security audits, vulnerability scanning basics.","security;aws",Security,Gurgaon,3 months,https://example.com/apply/18
+19,Research Data Analyst,StatScope,"Statistical analysis, R/Python, report generation.","r;python;statistics",Data Science,Mumbai,4 months,https://example.com/apply/19
+20,UI Developer Intern,FrontendFlow,"React components, state management, basic testing.","react;javascript",Web Development,Bengaluru,2 months,https://example.com/apply/20
