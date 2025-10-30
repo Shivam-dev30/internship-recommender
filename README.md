@@ -1,6 +1,14 @@
-# Internship Recommender
+# 🎓 Internship Recommender
 
-Simple Flask app that recommends internships from a CSV based on user skills, sector, location and short bio. Uses rule-based scoring + TF-IDF description similarity.
+An intelligent **Flask web app** that recommends internships based on your **skills**, **sector**, **location**, and **short bio**.  
+It uses **rule-based scoring** + **TF-IDF text similarity** to suggest the most relevant internships from a CSV dataset.
+
+---
+
+## 🌐 Live Demo
+🚀 ** http://internshiprecommendershivamdev30.up.railway.app**  
+
+---
 
 ## Run locally
 
