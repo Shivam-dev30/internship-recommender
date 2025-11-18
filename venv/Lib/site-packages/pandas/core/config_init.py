@@ -265,7 +265,7 @@ pc_max_seq_items = """
 """
 
 pc_max_info_rows_doc = """
-: int
+: int or None
     df.info() will usually show null-counts for each column.
     For large frames this can be quite slow. max_info_rows and max_info_cols
     limit this null check only to frames with smaller dimensions than
@@ -275,7 +275,7 @@ pc_max_info_rows_doc = """
 pc_large_repr_doc = """
 : 'truncate'/'info'
     For DataFrames exceeding max_rows/max_cols, the repr (and HTML repr) can
-    show a truncated table, or switch to the view from
+    show a truncated table (the default from 0.13), or switch to the view from
     df.info() (the behaviour in earlier versions of pandas).
 """
 
@@ -322,7 +322,7 @@ with cf.config_prefix("display"):
         "max_info_rows",
         1690785,
         pc_max_info_rows_doc,
-        validator=is_int,
+        validator=is_instance_factory((int, type(None))),
     )
     cf.register_option("max_rows", 60, pc_max_rows_doc, validator=is_nonnegative_int)
     cf.register_option(
@@ -411,8 +411,6 @@ use_inf_as_na_doc = """
     True means treat None, NaN, INF, -INF as NA (old way),
     False means None and NaN are null, but INF, -INF are not NA
     (new way).
-
-    This option is deprecated in pandas 2.1.0 and will be removed in 3.0.
 """
 
 # We don't want to start importing everything at the global context level
@@ -420,7 +418,6 @@ use_inf_as_na_doc = """
 
 
 def use_inf_as_na_cb(key) -> None:
-    # TODO(3.0): enforcing this deprecation will close GH#52501
     from pandas.core.dtypes.missing import _use_inf_as_na
 
     _use_inf_as_na(key)
@@ -429,12 +426,6 @@ def use_inf_as_na_cb(key) -> None:
 with cf.config_prefix("mode"):
     cf.register_option("use_inf_as_na", False, use_inf_as_na_doc, cb=use_inf_as_na_cb)
 
-cf.deprecate_option(
-    # GH#51684
-    "mode.use_inf_as_na",
-    "use_inf_as_na option is deprecated and will be removed in a future "
-    "version. Convert inf values to NaN before operating instead.",
-)
 
 data_manager_doc = """
 : string
@@ -454,13 +445,6 @@ with cf.config_prefix("mode"):
         validator=is_one_of_factory(["block", "array"]),
     )
 
-cf.deprecate_option(
-    # GH#55043
-    "mode.data_manager",
-    "data_manager option is deprecated and will be removed in a future "
-    "version. Only the BlockManager will be available.",
-)
-
 
 # TODO better name?
 copy_on_write_doc = """
@@ -476,11 +460,9 @@ with cf.config_prefix("mode"):
         "copy_on_write",
         # Get the default from an environment variable, if set, otherwise defaults
         # to False. This environment variable can be set for testing.
-        "warn"
-        if os.environ.get("PANDAS_COPY_ON_WRITE", "0") == "warn"
-        else os.environ.get("PANDAS_COPY_ON_WRITE", "0") == "1",
+        os.environ.get("PANDAS_COPY_ON_WRITE", "0") == "1",
         copy_on_write_doc,
-        validator=is_one_of_factory([True, False, "warn"]),
+        validator=is_bool,
     )
 
 
@@ -502,8 +484,7 @@ with cf.config_prefix("mode"):
 
 string_storage_doc = """
 : string
-    The default storage for StringDtype. This option is ignored if
-    ``future.infer_string`` is set to True.
+    The default storage for StringDtype.
 """
 
 with cf.config_prefix("mode"):
@@ -511,7 +492,7 @@ with cf.config_prefix("mode"):
         "string_storage",
         "python",
         string_storage_doc,
-        validator=is_one_of_factory(["python", "pyarrow", "pyarrow_numpy"]),
+        validator=is_one_of_factory(["python", "pyarrow"]),
     )
 
 
@@ -522,11 +503,11 @@ reader_engine_doc = """
     auto, {others}.
 """
 
-_xls_options = ["xlrd", "calamine"]
-_xlsm_options = ["xlrd", "openpyxl", "calamine"]
-_xlsx_options = ["xlrd", "openpyxl", "calamine"]
-_ods_options = ["odf", "calamine"]
-_xlsb_options = ["pyxlsb", "calamine"]
+_xls_options = ["xlrd"]
+_xlsm_options = ["xlrd", "openpyxl"]
+_xlsx_options = ["xlrd", "openpyxl"]
+_ods_options = ["odf"]
+_xlsb_options = ["pyxlsb"]
 
 
 with cf.config_prefix("io.excel.xls"):
@@ -730,13 +711,13 @@ styler_max_elements = """
 styler_max_rows = """
 : int, optional
     The maximum number of rows that will be rendered. May still be reduced to
-    satisfy ``max_elements``, which takes precedence.
+    satsify ``max_elements``, which takes precedence.
 """
 
 styler_max_columns = """
 : int, optional
     The maximum number of columns that will be rendered. May still be reduced to
-    satisfy ``max_elements``, which takes precedence.
+    satsify ``max_elements``, which takes precedence.
 """
 
 styler_precision = """
@@ -864,7 +845,7 @@ with cf.config_prefix("styler"):
         "format.escape",
         None,
         styler_escape,
-        validator=is_one_of_factory([None, "html", "latex", "latex-math"]),
+        validator=is_one_of_factory([None, "html", "latex"]),
     )
 
     cf.register_option(
@@ -899,26 +880,4 @@ with cf.config_prefix("styler"):
         None,
         styler_environment,
         validator=is_instance_factory([type(None), str]),
-    )
-
-
-with cf.config_prefix("future"):
-    cf.register_option(
-        "infer_string",
-        False,
-        "Whether to infer sequence of str objects as pyarrow string "
-        "dtype, which will be the default in pandas 3.0 "
-        "(at which point this option will be deprecated).",
-        validator=is_one_of_factory([True, False]),
-    )
-
-    cf.register_option(
-        "no_silent_downcasting",
-        False,
-        "Whether to opt-in to the future behavior which will *not* silently "
-        "downcast results from Series and DataFrame `where`, `mask`, and `clip` "
-        "methods. "
-        "Silent downcasting will be removed in pandas 3.0 "
-        "(at which point this option will be deprecated).",
-        validator=is_one_of_factory([True, False]),
     )
