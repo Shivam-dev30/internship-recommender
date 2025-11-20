@@ -6,7 +6,7 @@ It uses **rule-based scoring** + **TF-IDF text similarity** to suggest the most 
 ---
 
 ## 🌐 Live Demo
-🚀 ** http://internshiprecommendershivamdev30.up.railway.app**  
+🚀 ** http://internshiprecommender.up.railway.app**  
 
 ---
 
